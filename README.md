@@ -2,18 +2,14 @@
 
 # Aplicación de [Newal]()
 
-# Gestión de Alumnos en Prácticas
-
-![Laravel](https://img.shields.io/badge/Laravel-10.x-red?style=for-the-badge&logo=laravel)
-![Vue.js](https://img.shields.io/badge/Vue.js-3.x-42b883?style=for-the-badge&logo=vue.js)
+![Laravel](https://img.shields.io/badge/Laravel-12-yellow?style=for-the-badge&logo=laravel)
+![Vue.js](https://img.shields.io/badge/Vue.js-3.2-42b883?style=for-the-badge&logo=vue.js)
 ![Inertia.js](https://img.shields.io/badge/Inertia.js-SPA-800080?style=for-the-badge)
 ![MySQL](https://img.shields.io/badge/Database-MySQL-blue?style=for-the-badge&logo=mysql)
-
-![License](https://img.shields.io/github/license/Miriam7331/Newal?style=for-the-badge)
-![Issues](https://img.shields.io/github/issues/Miriam7331/Newal?style=for-the-badge)
-![Last Commit](https://img.shields.io/github/last-commit/Miriam7331/Newal?style=for-the-badge)
-
+![PHP](https://img.shields.io/badge/PHP-8.2-orange?style=for-the-badge&logo=php)
 ![Made with](https://img.shields.io/badge/Made%20with-Laragon-blue?style=for-the-badge&logo=laragon)
+
+# Gestión de Alumnos en Prácticas
 
 Esta aplicación está desarrollada en Laravel 12 haciendo uso de PHP 8.2
 
