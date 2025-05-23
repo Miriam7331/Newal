@@ -1,0 +1,86 @@
+import { ref, watch, reactive } from "vue"
+import debounce from "lodash.debounce"
+
+export default function useTableServer() {
+  const loading = ref(false)
+
+  const endPoint = ref("")
+
+  const tableData = reactive({
+    page: 1,
+    itemsPerPage: 10,
+    sortBy: [],
+    items: [],
+    search: {},
+    itemsLength: 0,
+    deleted: false,
+  })
+
+  let itemsPerPageOptions = [
+    { value: 10, title: "10" },
+    { value: 25, title: "25" },
+    { value: 50, title: "50" },
+    { value: 100, title: "100" },
+  ]
+
+  const updateItems = debounce(() => loadItems(), 500)
+
+  const loadItems = () => {
+    if (loading.value) {
+      return
+    }
+
+    loading.value = true
+
+    const cleanedSearch = Object.entries(tableData.search).reduce(
+      (a, [k, v]) => (v !== "" ? ((a[k] = v), a) : a),
+      {}
+    )
+
+    const searchJson = JSON.stringify(cleanedSearch)
+    const sortByJson = JSON.stringify(tableData.sortBy)
+
+    axios
+      .post(`${endPoint.value}/load-items`, {
+        page: tableData.page,
+        itemsPerPage: tableData.itemsPerPage,
+        sortBy: sortByJson,
+        search: searchJson,
+        deleted: tableData.deleted,
+      })
+      .then((response) => {
+        tableData.items = response.data.tableData.items
+        tableData.itemsLength = response.data.tableData.itemsLength
+        loading.value = false
+      })
+  }
+
+  const resetTable = () => {
+    tableData.page = 1
+    tableData.itemsPerPage = 10
+    tableData.sortBy = []
+    tableData.search = {}
+    tableData.itemsLength = 0
+    tableData.deleted = false
+    tableData.items = []
+
+    loadItems()
+  }
+
+  watch(
+    () => tableData.deleted,
+    () => {
+      loadItems()
+    }
+  )
+
+  return {
+    tableData,
+    endPoint,
+    loading,
+    updateItems,
+    itemsPerPageOptions,
+    loadItems,
+    resetTable,
+  }
+}
